@@ -36,7 +36,7 @@ window.CONTENT = {
           ["Ruang disk kosong","2 GB","2 GB atau lebih"],
           ["Excel","Excel 2016 atau lebih baru","Microsoft 365"]
         ]},
-        {t:"callout", k:"warn", v:"**Pengguna Mac:** Power BI Desktop hanya berjalan di Windows. Jika Anda memakai Mac, hubungi panitia agar disiapkan laptop pengganti."},
+        {t:"callout", k:"warn", v:"Diharapkan untuk menggunakan laptop Windows selama workshop berlangsung, karena adanya keterbatasan fitur yang dapat diakses pada Mac."},
         {t:"callout", v:"**Tips layar:** jika tombol atau jendela terlihat terpotong, buka **Settings → System → Display** lalu atur skala (Scale) ke **100%**."},
         {t:"h", v:"2. Cek apakah Power BI sudah terpasang"},
         {t:"steps", v:[
