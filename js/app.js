@@ -104,9 +104,15 @@
     content.appendChild(head);
     m.blocks.forEach(function(b){ content.appendChild(block(b)); });
 
-    var done = el("button","btn"+(state.done[m.id]?" done":""), state.done[m.id] ? "&#10003; Selesai (klik untuk batal)" : "Tandai selesai");
+    var done = el("button","btn");
     done.type="button";
-    done.onclick=function(){ state.done[m.id]=!state.done[m.id]; save(); render(); };
+    function paintDone(){
+      done.classList.toggle("done", !!state.done[m.id]);
+      done.innerHTML = state.done[m.id] ? "&#10003; Selesai (klik untuk batal)" : "Tandai selesai";
+    }
+    paintDone();
+    // Perbarui tombol dan menu saja; render() penuh akan menggulir halaman kembali ke atas.
+    done.onclick=function(){ state.done[m.id]=!state.done[m.id]; save(); paintDone(); renderNav(idx); };
     content.appendChild(el("div","mod-done")).appendChild(done);
 
     var pager = el("div","pager");
