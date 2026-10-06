@@ -69,6 +69,8 @@ nav a{
 nav a:hover{background:#f0eee9}
 nav a[aria-current="page"]{background:var(--bg);border-left-color:var(--accent);font-weight:600}
 
+.nav-group{padding:16px 22px 7px;border-bottom:1px solid var(--line);color:var(--muted);font-size:.8rem;font-weight:600}
+
 .num{flex:0 0 1.1em;color:var(--muted);font-size:.86rem;font-variant-numeric:tabular-nums;font-weight:400}
 nav a.done .num{color:var(--ok);font-weight:700}
 .nav-body{min-width:0}
@@ -113,6 +115,72 @@ pre{
   margin:14px 0 6px;
   overflow-x:auto;
 }
+
+.codebox{display:flex;align-items:stretch;margin:14px 0 6px}
+.codebox pre{flex:1;min-width:0;margin:0}
+.copy{
+  flex:0 0 auto;
+  min-width:68px;
+  min-height:44px;
+  font:inherit;
+  font-size:.88rem;
+  font-weight:600;
+  border:1px solid var(--line);
+  border-left:0;
+  background:var(--bg);
+  color:var(--accent);
+  cursor:pointer;
+}
+.copy:hover{background:var(--side-bg)}
+
+/* Cheatsheet entries */
+.entry{border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:-1px}
+.entry summary{
+  position:relative;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-height:44px;
+  padding:10px 32px 10px 0;
+  cursor:pointer;
+  list-style:none;
+}
+.entry-text{display:flex;flex-direction:column;min-width:0}
+.viz{flex:0 0 80px;width:80px;height:54px;border:1px solid var(--line);border-radius:4px;background:var(--bg)}
+.viz .a{fill:var(--accent)}
+.viz .b{fill:var(--mark)}
+.viz .c{fill:var(--line-strong)}
+.viz .sa{fill:none;stroke:var(--accent);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.viz .sl{fill:none;stroke:var(--line-strong);stroke-width:1}
+.viz .pa{stroke:var(--accent)}
+.viz .pb{stroke:var(--mark)}
+.viz .pc{stroke:var(--line-strong)}
+.entry summary::-webkit-details-marker{display:none}
+.entry summary::after{content:"+";position:absolute;right:6px;top:8px;color:var(--muted);font-size:1.2rem;font-weight:400}
+.entry[open] summary::after{content:"\2212"}
+.entry-name{font-weight:700}
+.entry-opt{font-weight:400;color:var(--muted)}
+.entry-body{padding:0 0 14px}
+.entry-body p{margin:8px 0}
+.entry-body > :first-child{margin-top:0}
+.entry-body .entry-label{margin-bottom:0}
+.entry-body .codebox{margin-top:6px}
+
+.search{margin:14px 0 16px}
+.search label{display:block;font-weight:600}
+.search input{
+  display:block;
+  width:100%;
+  min-height:44px;
+  margin-top:6px;
+  padding:8px 12px;
+  font:inherit;
+  color:var(--ink);
+  background:var(--bg);
+  border:1px solid var(--line-strong);
+  border-radius:6px;
+}
+.search-empty{color:var(--muted)}
 
 .callout{padding:12px 16px;margin:18px 0;background:var(--note-bg);border-left:3px solid var(--mark)}
 .callout.warn{background:var(--warn-bg);border-left-color:var(--warn-line)}
@@ -171,6 +239,7 @@ td:first-child{font-weight:600}
 /* Buttons */
 .btn{
   display:inline-block;
+  min-height:44px;
   font:inherit;
   font-weight:600;
   border:1px solid var(--accent);
@@ -194,7 +263,7 @@ td:first-child{font-weight:600}
 
 @media (max-width:860px){
   .topbar{display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:30;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 16px}
-  .menu-btn{font:inherit;font-size:.92rem;font-weight:600;border:1px solid var(--line-strong);background:var(--bg);border-radius:6px;padding:6px 10px;cursor:pointer;color:var(--ink)}
+  .menu-btn{font:inherit;font-size:.92rem;font-weight:600;border:1px solid var(--line-strong);background:var(--bg);border-radius:6px;min-height:44px;padding:6px 12px;cursor:pointer;color:var(--ink)}
   .topbar-title{font-weight:600;font-size:.95rem}
   .layout{display:block}
   .sidebar{
@@ -215,6 +284,17 @@ td:first-child{font-weight:600}
   .term{grid-template-columns:1fr}
 }
 
+/* Tabel bertanda stack: tiap baris menjadi satu kelompok, label kolom dari data-label */
+@media (max-width:600px){
+  .stack table{font-size:1rem}
+  .stack table,.stack tbody,.stack tr,.stack td{display:block}
+  .stack tr:first-child{display:none}
+  .stack tr{padding:10px 0;border-bottom:1px solid var(--line)}
+  .stack tr:last-child{border-bottom:0}
+  .stack td{padding:2px 0;border:0}
+  .stack td[data-label]::before{content:attr(data-label) ": ";color:var(--muted);font-weight:600}
+}
+
 @media (max-width:480px){
   .btn{width:100%;text-align:center}
   .pager{display:grid;grid-template-columns:1fr}
@@ -222,4 +302,13 @@ td:first-child{font-weight:600}
 
 @media (prefers-reduced-motion:reduce){
   .progress-bar,.sidebar{transition:none}
+}
+
+@media print{
+  .topbar,.sidebar,.overlay,.btn,.copy,.search,.pager,.mod-done{display:none !important}
+  .layout{display:block}
+  .content{max-width:none;padding:0}
+  .entry summary::after{content:none}
+  .entry,.callout,.codebox,pre,tr{break-inside:avoid}
+  h2{break-after:avoid}
 }
